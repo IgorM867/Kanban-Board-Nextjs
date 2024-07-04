@@ -7,3 +7,6 @@
   margin: 0;
   box-sizing: border-box;
 }
+.scrollbar {
+  scrollbar-color: #0b132b #1c2541;
+}

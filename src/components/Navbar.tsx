@@ -1,20 +1,16 @@
-import { Board } from "@/types";
-import { TableIcon } from "./Icons/TableIcon";
 import { NavbarButton } from "./NavbarButton";
 import { NabarNewBoardButton } from "./NabarNewBoardButton";
+import { getBoards } from "@/lib/data";
 
-type NavbarProps = {
-  boards: Board[];
-};
-
-function Navbar({ boards }: NavbarProps) {
+async function Navbar() {
+  const boards = await getBoards();
   return (
-    <nav className="h-screen w-64 bg-primary-color">
+    <nav className="h-screen w-64 bg-primary-color py-2 overflow-hidden flex flex-col">
       <header className="text-5xl font-bold text-center">Kanban Board</header>
       <p className="text-font-secondary-color px-5 pt-6 pb-3">ALL BOARDS ({boards.length})</p>
-      <ul>
+      <ul className="overflow-y-auto scrollbar">
         {boards.map((board) => (
-          <NavbarButton boardId={board.id} boardName={board.name} key={board.id} />
+          <NavbarButton board={board} key={board.id} />
         ))}
         <NabarNewBoardButton />
       </ul>
