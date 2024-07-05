@@ -3,13 +3,13 @@ import { createBoard } from "@/lib/actions";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useToast } from "./ui/use-toast";
 
-type NabarNewBoardFromProps = {
+type NabarNewBoardFormProps = {
   setIsActive: Dispatch<SetStateAction<boolean>>;
 };
-function NabarNewBoardFrom({ setIsActive }: NabarNewBoardFromProps) {
+function NabarNewBoardForm({ setIsActive }: NabarNewBoardFormProps) {
   const [inputValue, setInputValue] = useState("");
-  const ref = useRef<HTMLFormElement>(null);
   const { toast } = useToast();
+  const ref = useRef<HTMLFormElement>(null);
 
   const handleBlur = () => {
     setIsActive(false);
@@ -61,4 +61,4 @@ function NabarNewBoardFrom({ setIsActive }: NabarNewBoardFromProps) {
   );
 }
 
-export { NabarNewBoardFrom };
+export { NabarNewBoardForm };

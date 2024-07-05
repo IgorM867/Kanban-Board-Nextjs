@@ -40,3 +40,14 @@ export async function deleteBoard(boardId: string) {
   }
   revalidatePath("/", "layout");
 }
+export async function renameBoard(boardId: string, boardName: string) {
+  if (!boardName.trim()) {
+    return { error: "Board name cannot be empty" };
+  }
+  try {
+    await sql`UPDATE boards SET name = ${boardName} WHERE id = ${boardId};`;
+  } catch (error) {
+    return { error: "Cannot rename board" };
+  }
+  revalidatePath("/", "layout");
+}

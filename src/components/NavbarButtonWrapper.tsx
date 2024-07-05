@@ -20,9 +20,10 @@ import {
 type NavbarButtonWrapperProps = {
   children: ReactNode;
   onBoardDelete: () => void;
+  onBoardRename: () => void;
 };
 
-function NavbarButtonWrapper({ children, onBoardDelete }: NavbarButtonWrapperProps) {
+function NavbarButtonWrapper({ children, onBoardDelete, onBoardRename }: NavbarButtonWrapperProps) {
   return (
     <AlertDialog>
       <ContextMenu>
@@ -31,7 +32,7 @@ function NavbarButtonWrapper({ children, onBoardDelete }: NavbarButtonWrapperPro
           <ContextMenuItem>
             <AlertDialogTrigger>Delete Board</AlertDialogTrigger>
           </ContextMenuItem>
-          {/* <ContextMenuItem>Rename</ContextMenuItem> */}
+          <ContextMenuItem onClick={onBoardRename}>Rename</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
       <AlertDialogContent>

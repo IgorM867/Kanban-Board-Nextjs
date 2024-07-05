@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { TableIcon } from "./Icons/TableIcon";
-import { NabarNewBoardFrom } from "./NabarNewBoardFrom";
+import { NabarNewBoardForm } from "./NabarNewBoardForm";
 
 function NabarNewBoardButton() {
   const [isActive, setIsActive] = useState(false);
@@ -16,7 +16,7 @@ function NabarNewBoardButton() {
       <TableIcon width={36} height={32} className="fill-secondary-color" />
 
       {isActive ? (
-        <NabarNewBoardFrom setIsActive={setIsActive} />
+        <NabarNewBoardForm setIsActive={setIsActive} />
       ) : (
         <span className="text-secondary-color font-medium">+Create New Board</span>
       )}
