@@ -8,10 +8,14 @@ const newBoardFormSchema = z.object({
   boardName: z.string({ invalid_type_error: "Board Name is required" }).min(1).max(14),
 });
 
+//function to simulate network delay
+async function wait(delay: number) {
+  await new Promise((resolve, reject) => {
+    setTimeout(() => resolve(null), delay);
+  });
+}
+
 export async function createBoard(formData: FormData) {
-  // await new Promise((resolve, reject) => {
-  //   setTimeout(() => resolve(null), 4000);
-  // });
   const validatedFields = newBoardFormSchema.safeParse({ boardName: formData.get("boardName") });
 
   if (!validatedFields.success) {
@@ -27,4 +31,12 @@ export async function createBoard(formData: FormData) {
 
   revalidatePath("/", "layout");
   redirect(`/${result?.rows[0]?.id}`);
+}
+export async function deleteBoard(boardId: string) {
+  try {
+    await sql`DELETE FROM boards WHERE id = ${boardId};`;
+  } catch (error) {
+    return { error: "Cannot delete board" };
+  }
+  revalidatePath("/", "layout");
 }
