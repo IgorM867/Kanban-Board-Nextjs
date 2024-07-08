@@ -9,13 +9,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
+} from "../ui/alert-dialog";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "./ui/context-menu";
+} from "../ui/context-menu";
 
 type NavbarButtonWrapperProps = {
   children: ReactNode;

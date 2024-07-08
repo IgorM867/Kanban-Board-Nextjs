@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
+import { Roboto } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import { Navbar } from "@/components/Navbar/Navbar";
 
 const roboto = Roboto({ weight: ["700", "500", "400"], subsets: ["latin"] });
 

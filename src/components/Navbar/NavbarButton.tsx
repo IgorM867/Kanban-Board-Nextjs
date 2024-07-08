@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import { TableIcon } from "./Icons/TableIcon";
+import { TableIcon } from "../Icons/TableIcon";
 import { useParams } from "next/navigation";
 import { Board } from "@/types";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import { deleteBoard } from "@/lib/actions";
 import { NavbarButtonWrapper } from "./NavbarButtonWrapper";
 import { useState } from "react";

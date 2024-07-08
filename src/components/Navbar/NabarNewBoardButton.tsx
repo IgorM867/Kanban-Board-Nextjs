@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { TableIcon } from "./Icons/TableIcon";
 import { NabarNewBoardForm } from "./NabarNewBoardForm";
+import { TableIcon } from "../Icons/TableIcon";
 
 function NabarNewBoardButton() {
   const [isActive, setIsActive] = useState(false);

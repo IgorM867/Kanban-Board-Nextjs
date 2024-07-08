@@ -1,8 +1,8 @@
 "use client";
 import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
-import { TableIcon } from "./Icons/TableIcon";
-import { useToast } from "./ui/use-toast";
 import { renameBoard } from "@/lib/actions";
+import { useToast } from "../ui/use-toast";
+import { TableIcon } from "../Icons/TableIcon";
 
 type NavabarRenameFormProps = {
   boardName: string;

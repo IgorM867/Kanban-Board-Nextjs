@@ -1,7 +1,7 @@
 "use client";
 import { createBoard } from "@/lib/actions";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 
 type NabarNewBoardFormProps = {
   setIsActive: Dispatch<SetStateAction<boolean>>;
