@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header/Header";
-import { getBoardById } from "@/lib/data";
+import { getBoardById, getBoardColumns } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 type BoardPageProps = {
@@ -13,9 +13,11 @@ async function BoardPage({ params }: BoardPageProps) {
   if (!board) {
     return notFound();
   }
+  const columns = await getBoardColumns(board.id);
+
   return (
     <main className="flex-grow">
-      <Header boardName={board.name} />
+      <Header boardName={board.name} columns={columns} />
     </main>
   );
 }

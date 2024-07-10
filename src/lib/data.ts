@@ -1,4 +1,4 @@
-import { Board } from "@/types";
+import { Board, Column } from "@/types";
 import { sql } from "@vercel/postgres";
 
 export async function getBoards() {
@@ -18,5 +18,14 @@ export async function getBoardById(boardId: string) {
     return result.rows[0];
   } catch (error) {
     return null;
+  }
+}
+export async function getBoardColumns(boardId: string) {
+  try {
+    const result =
+      await sql<Column>`SELECT * FROM columns WHERE board_id = ${boardId} ORDER BY column_order;`;
+    return result.rows;
+  } catch (error) {
+    return [];
   }
 }
