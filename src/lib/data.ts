@@ -1,4 +1,4 @@
-import { Board, Column } from "@/types";
+import { Board, Column, Subtask, Task } from "@/types";
 import { sql } from "@vercel/postgres";
 
 export async function getBoards() {
@@ -24,6 +24,24 @@ export async function getBoardColumns(boardId: string) {
   try {
     const result =
       await sql<Column>`SELECT * FROM columns WHERE board_id = ${boardId} ORDER BY column_order;`;
+    return result.rows;
+  } catch (error) {
+    return [];
+  }
+}
+export async function getTasks(columId: string) {
+  try {
+    const result =
+      await sql<Task>`SELECT * FROM tasks WHERE column_id = ${columId} ORDER BY task_order;`;
+    return result.rows;
+  } catch (error) {
+    return [];
+  }
+}
+export async function getSubtasks(taskId: string) {
+  try {
+    const result =
+      await sql<Subtask>`SELECT * FROM subtasks WHERE task_id = ${taskId} ORDER BY subtask_order;`;
     return result.rows;
   } catch (error) {
     return [];

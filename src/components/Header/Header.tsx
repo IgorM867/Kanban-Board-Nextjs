@@ -10,7 +10,7 @@ type HeaderProps = {
 function Header({ boardName, columns }: HeaderProps) {
   return (
     <header className="bg-primary-color py-10 px-7 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] flex justify-between items-center">
-      <h2 className="text-4xl font-semibold">{boardName}</h2>
+      <h2 className="text-4xl font-medium">{boardName}</h2>
       <div className="flex gap-8 items-center">
         {columns.length > 0 && <AddTaskButton columns={columns} />}
         <EllipsisVerticalIcon

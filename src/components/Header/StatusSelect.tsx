@@ -3,9 +3,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 
 function StatusSelect({ columns }: { columns: Column[] }) {
   return (
-    <Select name="status">
+    <Select name="status" required>
       <SelectTrigger>
-        <SelectValue placeholder="TODO" />
+        <SelectValue placeholder="Select column" />
       </SelectTrigger>
       <SelectContent id="status">
         {columns.map((column) => (

@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+"use client";
+import { ReactNode, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { NewTaskForm } from "./NewTaskForm";
 import { Column } from "@/types";
@@ -9,14 +10,16 @@ type AddTaskButtonWrapperProps = {
 };
 
 function AddTaskButtonWrapper({ children, columns }: AddTaskButtonWrapperProps) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
-          <DialogTitle className="text-3xl font-semibold">Add new task</DialogTitle>
+          <DialogTitle className="text-3xl font-medium">Add new task</DialogTitle>
         </DialogHeader>
-        <NewTaskForm columns={columns} />
+        <NewTaskForm columns={columns} closeDialog={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   );

@@ -1,12 +1,17 @@
+import { ColumnsList } from "@/components/ColumnsList/ColumnsList";
+import { ColumnsSkeleton } from "@/components/ColumnsList/ColumnsSkeleton";
 import { Header } from "@/components/Header/Header";
 import { getBoardById, getBoardColumns } from "@/lib/data";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 type BoardPageProps = {
   params: {
     boardId: string;
   };
 };
+
+export const revalidate = 0;
 
 async function BoardPage({ params }: BoardPageProps) {
   const board = await getBoardById(params.boardId);
@@ -16,8 +21,11 @@ async function BoardPage({ params }: BoardPageProps) {
   const columns = await getBoardColumns(board.id);
 
   return (
-    <main className="flex-grow">
+    <main className="flex-grow flex flex-col">
       <Header boardName={board.name} columns={columns} />
+      <Suspense fallback={<ColumnsSkeleton />}>
+        <ColumnsList columns={columns} />
+      </Suspense>
     </main>
   );
 }

@@ -26,8 +26,10 @@ function Subtasks() {
       <FormLabel label="Subtasks" />
       <ul>
         {subtasks.map((subtask, i) => (
-          <li className="flex mb-2">
+          <li className="flex mb-2" key={i}>
             <input
+              autoComplete="off"
+              autoFocus
               name={`subtask-${i}`}
               className="w-full bg-primary-color border-font-secondary-color border-2 outline-none rounded-md p-1 focus:border-font-primary-color"
               placeholder={placeholders[i]}
@@ -43,7 +45,7 @@ function Subtasks() {
       </ul>
       <button
         type="button"
-        className="bg-font-primary-color text-secondary-color text-xl font-semibold w-full p-2 rounded-3xl cursor-pointer hover:text-font-primary-color hover:bg-secondary-color"
+        className="bg-font-primary-color text-secondary-color text-xl font-medium w-full p-2 rounded-3xl cursor-pointer hover:text-font-primary-color hover:bg-secondary-color"
         onClick={addSubtask}
       >
         +Add New Subtask

@@ -60,7 +60,8 @@ const newTaskFormSchema = z
   })
   .required({ title: true, status: true });
 
-export async function addTask(formData: FormData) {
+type FormState = { message: string; success: boolean };
+export async function addTask(prevState: FormState, formData: FormData) {
   const rawSubtasks = [];
 
   for (const [key, value] of formData) {
@@ -75,10 +76,11 @@ export async function addTask(formData: FormData) {
   });
   const parsedSubtasks = z.array(z.string().min(1).max(50)).safeParse(rawSubtasks);
   if (!parsedData.success || !parsedSubtasks.success) {
-    return { error: "Invalid data" };
+    return { message: "Invalid submission data for task ", success: false };
   }
   const { title, description, status } = parsedData.data;
   const subtasks = parsedSubtasks.data;
+
   try {
     if (subtasks.length === 0) {
       await sql`INSERT INTO tasks (title,description,column_id) VALUES (${title},${description},${status})`;
@@ -86,7 +88,7 @@ export async function addTask(formData: FormData) {
       const dataPlaceholdres = subtasks
         .map((_, i) => `($${4 + i},(SELECT id FROM task))`)
         .join(", ");
-      console.log(dataPlaceholdres);
+
       await sql.query(
         `WITH task AS (INSERT INTO tasks (title,description,column_id) VALUES ($1,$2,$3) returning id)
         INSERT INTO subtasks (content,task_id) VALUES ${dataPlaceholdres};`,
@@ -94,7 +96,8 @@ export async function addTask(formData: FormData) {
       );
     }
   } catch (error) {
-    console.log(error);
-    return { error: "Could not insert task" };
+    return { message: "Could not insert task", success: false };
   }
+  revalidatePath("/", "page");
+  return { message: "", success: true };
 }
