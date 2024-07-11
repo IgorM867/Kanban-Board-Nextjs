@@ -101,3 +101,12 @@ export async function addTask(prevState: FormState, formData: FormData) {
   revalidatePath("/", "page");
   return { message: "", success: true };
 }
+
+export async function deleteTask(taskId: string, boardId: string) {
+  try {
+    await sql`DELETE FROM tasks WHERE id = ${taskId};`;
+  } catch (error) {
+    return { error: "Could not delete task" };
+  }
+  revalidatePath(`/${boardId}`, "page");
+}
