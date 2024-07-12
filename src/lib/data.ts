@@ -1,3 +1,4 @@
+import "server-only";
 import { Board, Column, Subtask, Task } from "@/types";
 import { sql } from "@vercel/postgres";
 import { consoleError } from "./utils";

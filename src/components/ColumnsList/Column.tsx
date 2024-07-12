@@ -15,7 +15,7 @@ async function Column({ column }: { column: ColumnType }) {
       </header>
       <ul>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} boardId={column.board_id} />
+          <Task key={task.id} task={task} />
         ))}
       </ul>
     </div>
