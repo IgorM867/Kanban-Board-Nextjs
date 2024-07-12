@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { consoleError } from "./utils";
+import { getSubtasks, getTaskById } from "./data";
 
 const newBoardFormSchema = z.object({
   boardName: z.string({ invalid_type_error: "Board Name is required" }).min(1).max(14),
@@ -151,4 +152,34 @@ export async function addColumn(
   }
   revalidatePath(`/${boardId}`, "page");
   return { message: "", success: true };
+}
+export async function duplicateTask(taskId: string) {
+  try {
+    const task = await getTaskById(taskId);
+    if (!task) {
+      consoleError("duplicateTask", "Task to duplicate not found");
+      return { error: "Task not found" };
+    }
+
+    const subtasks = await getSubtasks(task.id);
+    const subtasksContent = subtasks.map((subtask) => subtask.content);
+    const { title, description, column_id } = task;
+    if (subtasks.length === 0) {
+      await sql`INSERT INTO tasks (title,description,column_id) VALUES (${title},${description},${column_id})`;
+    } else {
+      const dataPlaceholdres = subtasks
+        .map((_, i) => `($${4 + i},(SELECT id FROM task))`)
+        .join(", ");
+
+      await sql.query(
+        `WITH task AS (INSERT INTO tasks (title,description,column_id) VALUES ($1,$2,$3) returning id)
+        INSERT INTO subtasks (content,task_id) VALUES ${dataPlaceholdres};`,
+        [title, description, column_id, ...subtasksContent]
+      );
+    }
+  } catch (error: any) {
+    consoleError("duplicateTask", error.message);
+    return { error: "Could not duplicate task" };
+  }
+  revalidatePath("/", "page");
 }

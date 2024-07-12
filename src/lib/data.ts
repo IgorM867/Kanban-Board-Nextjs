@@ -43,6 +43,18 @@ export async function getTasks(columId: string) {
     return [];
   }
 }
+export async function getTaskById(taskId: string) {
+  try {
+    const result = await sql<Task>`SELECT * FROM tasks WHERE id = ${taskId};`;
+    if (result.rows.length === 0) {
+      return null;
+    }
+    return result.rows[0];
+  } catch (error: any) {
+    consoleError("getTaskById", error.message);
+    return null;
+  }
+}
 export async function getSubtasks(taskId: string) {
   try {
     const result =
