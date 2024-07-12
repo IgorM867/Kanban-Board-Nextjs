@@ -3,6 +3,7 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { consoleError } from "./utils";
 
 const newBoardFormSchema = z.object({
   boardName: z.string({ invalid_type_error: "Board Name is required" }).min(1).max(14),
@@ -19,13 +20,15 @@ export async function createBoard(formData: FormData) {
   const validatedFields = newBoardFormSchema.safeParse({ boardName: formData.get("boardName") });
 
   if (!validatedFields.success) {
+    consoleError("createBoard", validatedFields.error.message);
     return { error: "Invalid data" };
   }
   const { boardName } = validatedFields.data;
   let result;
   try {
     result = await sql`INSERT INTO boards (name) VALUES (${boardName}) returning id`;
-  } catch (error) {
+  } catch (error: any) {
+    consoleError("createBoard", error.message);
     return { error: "Cannot insert board" };
   }
 
@@ -35,7 +38,8 @@ export async function createBoard(formData: FormData) {
 export async function deleteBoard(boardId: string) {
   try {
     await sql`DELETE FROM boards WHERE id = ${boardId};`;
-  } catch (error) {
+  } catch (error: any) {
+    consoleError("deleteBoard", error.message);
     return { error: "Cannot delete board" };
   }
   revalidatePath("/", "layout");
@@ -43,11 +47,13 @@ export async function deleteBoard(boardId: string) {
 }
 export async function renameBoard(boardId: string, boardName: string) {
   if (!boardName.trim()) {
+    consoleError("renameBoard", "Board name is empty");
     return { error: "Board name cannot be empty" };
   }
   try {
     await sql`UPDATE boards SET name = ${boardName} WHERE id = ${boardId};`;
-  } catch (error) {
+  } catch (error: any) {
+    consoleError("renameBoard", error.message);
     return { error: "Cannot rename board" };
   }
   revalidatePath("/", "layout");
@@ -76,9 +82,16 @@ export async function addTask(prevState: FormState, formData: FormData) {
     status: formData.get("status"),
   });
   const parsedSubtasks = z.array(z.string().min(1).max(50)).safeParse(rawSubtasks);
-  if (!parsedData.success || !parsedSubtasks.success) {
+
+  if (!parsedData.success) {
+    consoleError("addTask", parsedData.error.message);
     return { message: "Invalid submission data for task ", success: false };
   }
+  if (!parsedSubtasks.success) {
+    consoleError("addTask", parsedSubtasks.error.message);
+    return { message: "Invalid submission data for task ", success: false };
+  }
+
   const { title, description, status } = parsedData.data;
   const subtasks = parsedSubtasks.data;
 
@@ -96,7 +109,8 @@ export async function addTask(prevState: FormState, formData: FormData) {
         [title, description, status, ...subtasks]
       );
     }
-  } catch (error) {
+  } catch (error: any) {
+    consoleError("addTask", error.message);
     return { message: "Could not insert task", success: false };
   }
   revalidatePath("/", "page");
@@ -106,7 +120,8 @@ export async function addTask(prevState: FormState, formData: FormData) {
 export async function deleteTask(taskId: string, boardId: string) {
   try {
     await sql`DELETE FROM tasks WHERE id = ${taskId};`;
-  } catch (error) {
+  } catch (error: any) {
+    consoleError("deleteTask", error.message);
     return { error: "Could not delete task" };
   }
   revalidatePath(`/${boardId}`, "page");
@@ -124,12 +139,14 @@ export async function addColumn(
     .safeParse(formData.get("column_name"));
 
   if (!parsedData.success) {
+    consoleError("addColumn", parsedData.error.message);
     return { message: parsedData.error.flatten().formErrors[0], success: false };
   }
 
   try {
     await sql`INSERT INTO columns (name, board_id) VALUES (${parsedData.data}, ${boardId})`;
-  } catch (error) {
+  } catch (error: any) {
+    consoleError("addColumn", error.message);
     return { message: "Cannot add Column", success: false };
   }
   revalidatePath(`/${boardId}`, "page");
