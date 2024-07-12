@@ -39,6 +39,7 @@ export async function deleteBoard(boardId: string) {
     return { error: "Cannot delete board" };
   }
   revalidatePath("/", "layout");
+  redirect(`/`);
 }
 export async function renameBoard(boardId: string, boardName: string) {
   if (!boardName.trim()) {
