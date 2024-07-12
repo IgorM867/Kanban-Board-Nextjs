@@ -1,11 +1,11 @@
 "use client";
 import { addTask } from "@/lib/actions";
-import { FormLabel } from "./FormLabel";
+import { FormLabel } from "../ui/FormLabel";
 import { StatusSelect } from "./StatusSelect";
 import { Subtasks } from "./Subtasks";
 import { Column } from "@/types";
-import { TextInputWithLabel } from "./TextInputWithLabel";
-import { TextAreaWithLabel } from "./TextAreaWithLabel";
+import { TextInputWithLabel } from "../ui/TextInputWithLabel";
+import { TextAreaWithLabel } from "../ui/TextAreaWithLabel";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "./SubmitButton";
 import { useEffect } from "react";
@@ -37,10 +37,9 @@ function NewTaskForm({ columns, closeDialog }: NewTaskFormProps) {
         <FormLabel label="Status" htmlFor="status" />
         <StatusSelect columns={columns} />
       </div>
-      {state.message && <p className="text-red-500">{state.message}</p>}
+      {!state.success && <p className="text-red-500">{state.message}</p>}
       <SubmitButton />
     </form>
   );
 }
-
 export { NewTaskForm };

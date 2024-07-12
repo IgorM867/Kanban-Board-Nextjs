@@ -110,3 +110,27 @@ export async function deleteTask(taskId: string, boardId: string) {
   }
   revalidatePath(`/${boardId}`, "page");
 }
+
+export async function addColumn(
+  boardId: string,
+  prewState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const parsedData = z
+    .string({ invalid_type_error: "Column name must be a string" })
+    .min(1, "Column name must contain at least one character")
+    .max(20, "Column name can't exceed 3 characters")
+    .safeParse(formData.get("column_name"));
+
+  if (!parsedData.success) {
+    return { message: parsedData.error.flatten().formErrors[0], success: false };
+  }
+
+  try {
+    await sql`INSERT INTO columns (name, board_id) VALUES (${parsedData.data}, ${boardId})`;
+  } catch (error) {
+    return { message: "Cannot add Column", success: false };
+  }
+  revalidatePath(`/${boardId}`, "page");
+  return { message: "", success: true };
+}

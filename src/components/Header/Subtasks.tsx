@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { FormLabel } from "./FormLabel";
+import { FormLabel } from "../ui/FormLabel";
 import { XMarkIcon } from "../Icons/XMarkIcon";
 
 type Subtask = {
