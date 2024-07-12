@@ -8,7 +8,7 @@ type ColumnsListProps = {
 
 async function ColumnsList({ columns }: ColumnsListProps) {
   return (
-    <div className="flex-grow flex p-4 gap-5">
+    <div className="flex-grow flex p-4 gap-5 overflow-auto scrollbar">
       {columns.map((column) => (
         <Column key={column.id} column={column} />
       ))}

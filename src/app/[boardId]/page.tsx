@@ -21,7 +21,7 @@ async function BoardPage({ params }: BoardPageProps) {
   const columns = await getBoardColumns(board.id);
 
   return (
-    <main className="flex-grow flex flex-col">
+    <main className="flex-grow flex flex-col max-h-screen min-w-1">
       <Header boardName={board.name} columns={columns} />
       <Suspense fallback={<ColumnsSkeleton />}>
         <ColumnsList columns={columns} />

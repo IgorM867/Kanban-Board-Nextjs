@@ -4,7 +4,7 @@ import { BoardsList } from "./BoardsList";
 async function Navbar() {
   const boards = await getBoards();
   return (
-    <nav className="h-screen w-64 bg-primary-color py-2 overflow-hidden flex flex-col">
+    <nav className="h-screen w-64 bg-primary-color py-2 overflow-hidden flex flex-col flex-shrink-0">
       <header className="text-5xl font-bold text-center">
         <h1>Kanban Board</h1>
       </header>
