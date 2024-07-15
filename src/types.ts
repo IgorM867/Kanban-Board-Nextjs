@@ -9,6 +9,7 @@ export type Column = {
   board_id: string;
   name: string;
   column_order: number;
+  color: string;
 };
 export type Task = {
   id: string;

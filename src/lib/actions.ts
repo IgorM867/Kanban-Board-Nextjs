@@ -183,3 +183,11 @@ export async function duplicateTask(taskId: string) {
   }
   revalidatePath("/", "page");
 }
+export async function changeColumnColor(column_id: string, color: string) {
+  try {
+    await sql`UPDATE columns SET color = ${color} WHERE id = ${column_id};`;
+  } catch (error: any) {
+    consoleError("changeColumnColor", error.message);
+    return { error: "Could not change color" };
+  }
+}

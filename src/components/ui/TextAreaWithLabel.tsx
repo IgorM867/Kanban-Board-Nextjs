@@ -8,7 +8,7 @@ type TextAreaWithLabelProps = {
 
 function TextAreaWithLabel({ label, name, placeholder }: TextAreaWithLabelProps) {
   return (
-    <div>
+    <fieldset>
       <FormLabel label={label} htmlFor={name} />
       <textarea
         id={name}
@@ -18,7 +18,7 @@ function TextAreaWithLabel({ label, name, placeholder }: TextAreaWithLabelProps)
         placeholder={placeholder}
         className="resize-none w-full bg-primary-color border-font-secondary-color border-2 outline-none rounded-md p-1 focus:border-font-primary-color"
       />
-    </div>
+    </fieldset>
   );
 }
 
