@@ -191,3 +191,21 @@ export async function changeColumnColor(column_id: string, color: string) {
     return { error: "Could not change color" };
   }
 }
+export async function changeColumn(taskId: string, newColumnId: string, boardId: string) {
+  try {
+    await sql`UPDATE tasks SET column_id = ${newColumnId} WHERE id = ${taskId};`;
+  } catch (error: any) {
+    consoleError("changeColumn", error.message);
+    return { error: "Could not change column" };
+  }
+  revalidatePath(`/${boardId}`, "page");
+}
+export async function changeSubtaskDoneStatus(subtaskId: string, status: boolean, boardId: string) {
+  try {
+    await sql`UPDATE subtasks SET done = ${status} WHERE id = ${subtaskId};`;
+  } catch (error: any) {
+    consoleError("changeSubtaskDoneStatus", error.message);
+    return { error: "Could not change subtask status" };
+  }
+  revalidatePath(`/${boardId}`, "page");
+}

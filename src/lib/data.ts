@@ -24,6 +24,21 @@ export async function getBoardById(boardId: string) {
     return null;
   }
 }
+export async function getBoardByTask(taskId: string) {
+  try {
+    const result = await sql<Board>`
+    SELECT boards.id, boards.name,boards.board_order FROM boards
+      JOIN columns on columns.board_id = boards.id
+      JOIN tasks on tasks.column_id = columns.id WHERE tasks.id = ${taskId};`;
+    if (result.rows.length === 0) {
+      return null;
+    }
+    return result.rows[0];
+  } catch (error: any) {
+    consoleError("getBoardByTask", error.message);
+    return null;
+  }
+}
 export async function getBoardColumns(boardId: string) {
   try {
     const result =

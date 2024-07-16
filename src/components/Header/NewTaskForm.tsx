@@ -1,7 +1,7 @@
 "use client";
 import { addTask } from "@/lib/actions";
 import { FormLabel } from "../ui/FormLabel";
-import { StatusSelect } from "./StatusSelect";
+import { StatusSelect } from "../ui/StatusSelect";
 import { Subtasks } from "./Subtasks";
 import { Column } from "@/types";
 import { TextInputWithLabel } from "../ui/TextInputWithLabel";
