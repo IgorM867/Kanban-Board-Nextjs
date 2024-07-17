@@ -1,7 +1,12 @@
 import { Subtask as SubtaskType, Task } from "@/types";
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
-import { FormLabel } from "../ui/FormLabel";
-import { StatusSelect } from "../ui/StatusSelect";
+import {
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { FormLabel } from "@/components/ui/FormLabel";
+import { StatusSelect } from "@/components/ui/StatusSelect";
 import { changeColumn } from "@/lib/actions";
 import { Subtask } from "./Subtask";
 import { useColumns } from "@/providers/ColumnsProvider";

@@ -1,5 +1,5 @@
 import { Subtask as SubtaskType } from "@/types";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { changeSubtaskDoneStatus } from "@/lib/actions";
 
 type SubtaskProps = { subtask: SubtaskType; boardId: string };

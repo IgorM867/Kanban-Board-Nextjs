@@ -1,6 +1,6 @@
 "use client";
-import { Column } from "./Column";
-import { NewColumn } from "./NewColumn";
+import { Column } from "./Column/Column";
+import { NewColumnButton } from "./NewColumnButton/NewColumnButton";
 import { ColumnsListWrapper } from "./ColumnsListWrapper";
 import { useColumns } from "@/providers/ColumnsProvider";
 
@@ -14,7 +14,7 @@ function ColumnsList() {
           <Column key={column.id} column={column} />
         ))}
       </ColumnsListWrapper>
-      <NewColumn />
+      <NewColumnButton />
     </div>
   );
 }

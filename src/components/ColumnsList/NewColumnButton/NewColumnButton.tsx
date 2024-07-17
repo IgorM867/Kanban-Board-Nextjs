@@ -1,6 +1,6 @@
 import { NewColumnDialog } from "./NewColumnDialog";
 
-function NewColumn() {
+function NewColumnButton() {
   return (
     <div className="p-2 rounded-md w-64 flex flex-col flex-shrink-0">
       <NewColumnDialog>
@@ -12,4 +12,4 @@ function NewColumn() {
   );
 }
 
-export { NewColumn };
+export { NewColumnButton };

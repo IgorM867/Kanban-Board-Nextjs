@@ -13,9 +13,7 @@ type ColumnsListWrapperProps = {
 
 function ColumnsListWrapper({ children }: ColumnsListWrapperProps) {
   const [columns, setColumns] = useColumns();
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { delay: 100, tolerance: 5 } })
-  );
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 10 } }));
 
   const handleUpdateColumnsOrder = useDebouncedCallback((newOrder: string[]) => {
     updateColumnsOrder(newOrder);

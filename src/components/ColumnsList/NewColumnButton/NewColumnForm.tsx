@@ -1,6 +1,6 @@
 "use client";
 import { useFormState, useFormStatus } from "react-dom";
-import { TextInputWithLabel } from "../ui/TextInputWithLabel";
+import { TextInputWithLabel } from "@/components/ui/TextInputWithLabel";
 import { addColumn } from "@/lib/actions";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";

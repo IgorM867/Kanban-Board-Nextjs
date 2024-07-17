@@ -1,6 +1,12 @@
 "use client";
 import { ReactNode, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { NewColumnForm } from "./NewColumnForm";
 
 type NewColumnDialogProps = {

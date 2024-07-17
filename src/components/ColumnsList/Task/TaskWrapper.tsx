@@ -1,15 +1,15 @@
 "use client";
-import { ReactNode, useState } from "react";
-import { Dialog, DialogTrigger } from "../ui/dialog";
-import { ContextMenu, ContextMenuTrigger } from "../ui/context-menu";
+import { useState } from "react";
 import { useParams } from "next/navigation";
-import { deleteTask, duplicateTask } from "@/lib/actions";
+import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { TaskContextMenuContent } from "./TaskContextMenuContent";
 import { TaskDialogContent } from "./TaskDialogContent";
-import {  Subtask, Task } from "@/types";
+import { deleteTask, duplicateTask } from "@/lib/actions";
+import { Subtask, Task } from "@/types";
 
 type TaskWrapperProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   task: Task;
   subtasks: Subtask[];
 };

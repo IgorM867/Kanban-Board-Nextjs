@@ -1,5 +1,5 @@
-import { ContextMenuContent, ContextMenuItem } from "../ui/context-menu";
-import { useToast } from "../ui/use-toast";
+import { ContextMenuContent, ContextMenuItem } from "@/components/ui/context-menu";
+import { useToast } from "@/components/ui/use-toast";
 
 type TaskContextMenuContentProps = {
   onDelete: () => any;

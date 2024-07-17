@@ -1,5 +1,5 @@
 import { ColumnWithTasks } from "@/types";
-import { Task } from "./Task";
+import { Task } from "../Task/Task";
 import { ColorCircle } from "./ColorCircle";
 import { changeColumnColor } from "@/lib/actions";
 import { ColumnWrapper } from "./ColumnWrapper";
