@@ -1,4 +1,4 @@
-import { Column as ColumnType, ColumnWithTasks } from "@/types";
+import { ColumnWithTasks } from "@/types";
 import { Task } from "./Task";
 import { ColorCircle } from "./ColorCircle";
 import { changeColumnColor } from "@/lib/actions";
@@ -6,10 +6,9 @@ import { ColumnWrapper } from "./ColumnWrapper";
 
 type ColumnProps = {
   column: ColumnWithTasks;
-  columns: ColumnType[];
 };
 
-function Column({ column, columns }: ColumnProps) {
+function Column({ column }: ColumnProps) {
   return (
     <ColumnWrapper id={column.id}>
       <header className="flex items-center gap-2">
@@ -23,7 +22,7 @@ function Column({ column, columns }: ColumnProps) {
       </header>
       <ul>
         {column.tasks.map((task) => (
-          <Task key={task.id} task={task} columns={columns} />
+          <Task key={task.id} task={task} />
         ))}
       </ul>
     </ColumnWrapper>

@@ -6,16 +6,15 @@ import { useParams } from "next/navigation";
 import { deleteTask, duplicateTask } from "@/lib/actions";
 import { TaskContextMenuContent } from "./TaskContextMenuContent";
 import { TaskDialogContent } from "./TaskDialogContent";
-import { Column, Subtask, Task } from "@/types";
+import {  Subtask, Task } from "@/types";
 
 type TaskWrapperProps = {
   children: ReactNode;
   task: Task;
-  columns: Column[];
   subtasks: Subtask[];
 };
 
-function TaskWrapper({ children, task, subtasks, columns }: TaskWrapperProps) {
+function TaskWrapper({ children, task, subtasks }: TaskWrapperProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const { boardId } = useParams();
 
@@ -46,12 +45,7 @@ function TaskWrapper({ children, task, subtasks, columns }: TaskWrapperProps) {
           onDuplicate={() => duplicateTask(task.id)}
         />
       </ContextMenu>
-      <TaskDialogContent
-        boardId={boardId as string}
-        task={task}
-        columns={columns}
-        subtasks={subtasks}
-      />
+      <TaskDialogContent boardId={boardId as string} task={task} subtasks={subtasks} />
     </Dialog>
   );
 }

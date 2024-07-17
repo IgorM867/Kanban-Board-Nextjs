@@ -1,18 +1,19 @@
-import { Column, Subtask as SubtaskType, Task } from "@/types";
+import { Subtask as SubtaskType, Task } from "@/types";
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { FormLabel } from "../ui/FormLabel";
 import { StatusSelect } from "../ui/StatusSelect";
 import { changeColumn } from "@/lib/actions";
 import { Subtask } from "./Subtask";
+import { useColumns } from "@/providers/ColumnsProvider";
 
 type TaskDialogContentProps = {
   boardId: string;
   task: Task;
-  columns: Column[];
   subtasks: SubtaskType[];
 };
 
-function TaskDialogContent({ boardId, task, subtasks, columns }: TaskDialogContentProps) {
+function TaskDialogContent({ boardId, task, subtasks }: TaskDialogContentProps) {
+  const [columns] = useColumns();
   const doneSubtasksCount = subtasks.filter((subtask) => subtask.done).length;
   return (
     <DialogContent>

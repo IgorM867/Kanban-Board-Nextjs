@@ -1,19 +1,18 @@
 "use client";
-import { ColumnWithTasks } from "@/types";
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ReactNode } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import { updateColumnsOrder } from "@/lib/actions";
 import { useDebouncedCallback } from "use-debounce";
+import { useColumns } from "@/providers/ColumnsProvider";
 
 type ColumnsListWrapperProps = {
   children: ReactNode;
-  columns: ColumnWithTasks[];
-  setColumns: Dispatch<SetStateAction<ColumnWithTasks[]>>;
 };
 
-function ColumnsListWrapper({ children, columns, setColumns }: ColumnsListWrapperProps) {
+function ColumnsListWrapper({ children }: ColumnsListWrapperProps) {
+  const [columns, setColumns] = useColumns();
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { delay: 100, tolerance: 5 } })
   );
