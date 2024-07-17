@@ -209,3 +209,22 @@ export async function changeSubtaskDoneStatus(subtaskId: string, status: boolean
   }
   revalidatePath(`/${boardId}`, "page");
 }
+export async function updateColumnsOrder(newOrder: string[]) {
+  const idsPlaceholders = newOrder.map((_, i) => `($${i + 1})`);
+  try {
+    await sql.query(
+      `WITH id_mapping AS (
+     SELECT id, ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) - 1 AS new_value
+     FROM (VALUES ${idsPlaceholders}) AS id_list(id)
+    )
+    UPDATE columns
+    SET column_order = id_mapping.new_value
+    FROM id_mapping
+    WHERE columns.id::text = id_mapping.id;`,
+      newOrder
+    );
+  } catch (error: any) {
+    consoleError("updateColumnsOrder", error.message);
+    return { error: "Could not update columns order" };
+  }
+}

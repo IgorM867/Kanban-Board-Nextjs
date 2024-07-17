@@ -1,17 +1,14 @@
-import { getBoardByTask, getBoardColumns, getSubtasks } from "@/lib/data";
-import { Task as TaskType } from "@/types";
+import { Column, TaskWithSubtasks } from "@/types";
 import { TaskWrapper } from "./TaskWrapper";
 
 type TaskProps = {
-  task: TaskType;
+  task: TaskWithSubtasks;
+  columns: Column[];
 };
 
-async function Task({ task }: TaskProps) {
-  const subtasks = await getSubtasks(task.id);
+function Task({ task, columns }: TaskProps) {
+  const subtasks = task.subtasks;
   const numberOfDoneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-  const board = await getBoardByTask(task.id);
-  if (!board) return;
-  const columns = await getBoardColumns(board?.id);
 
   return (
     <TaskWrapper task={task} subtasks={subtasks} columns={columns}>

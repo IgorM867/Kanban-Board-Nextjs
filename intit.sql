@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS columns (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     board_id UUID NOT NULL REFERENCES boards(id) ON DELETE CASCADE,
     name VARCHAR(255) NOT NULL,
+    color VARCHAR(255) NOT NULL DEFAULT "#06b6d4"
     column_order SERIAL NOT NULL
 )
 
@@ -28,5 +29,4 @@ CREATE TABLE IF NOT EXISTS subtasks(
     task_id UUID NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
     done BOOLEAN NOT NULL DEFAULT FALSE,
     subtask_order SERIAL NOT NULL
-    color VARCHAR(255) NOT NULL DEFAULT "#06b6d4"
 )

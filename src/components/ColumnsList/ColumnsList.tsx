@@ -1,17 +1,34 @@
+"use client";
 import { Column } from "./Column";
-import { Column as ColumnType } from "@/types";
+import { ColumnWithTasks } from "@/types";
 import { NewColumn } from "./NewColumn";
+import { ColumnsListWrapper } from "./ColumnsListWrapper";
+import { useEffect, useState } from "react";
 
 type ColumnsListProps = {
-  columns: ColumnType[];
+  columns: ColumnWithTasks[];
 };
 
-async function ColumnsList({ columns }: ColumnsListProps) {
+function ColumnsList({ columns: initialColumns }: ColumnsListProps) {
+  const [columns, setColumns] = useState(initialColumns);
+
+  useEffect(() => {
+    setColumns(initialColumns);
+  }, [initialColumns]);
+
   return (
     <div className="flex-grow flex p-4 gap-5 overflow-auto scrollbar">
-      {columns.map((column) => (
-        <Column key={column.id} column={column} />
-      ))}
+      <ColumnsListWrapper columns={columns} setColumns={setColumns}>
+        {columns.map((column) => (
+          <Column
+            key={column.id}
+            column={column}
+            columns={columns.map(({ tasks, ...properties }) => {
+              return { ...properties };
+            })}
+          />
+        ))}
+      </ColumnsListWrapper>
       <NewColumn />
     </div>
   );

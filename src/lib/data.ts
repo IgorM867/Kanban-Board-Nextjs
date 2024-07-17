@@ -1,5 +1,5 @@
 import "server-only";
-import { Board, Column, Subtask, Task } from "@/types";
+import { Board, Column, ColumnWithTasks, Subtask, Task, TaskWithSubtasks } from "@/types";
 import { sql } from "@vercel/postgres";
 import { consoleError } from "./utils";
 
@@ -80,4 +80,21 @@ export async function getSubtasks(taskId: string) {
     consoleError("getSubtasks", error.message);
     return [];
   }
+}
+export async function getTasksWithSubtasks(columnId: string): Promise<TaskWithSubtasks[]> {
+  const tasks = await getTasks(columnId);
+  if (tasks.length === 0) return [];
+
+  const subtasks = await Promise.all(tasks.map((task) => getSubtasks(task.id)));
+  return tasks.map((task, i) => ({ ...task, subtasks: subtasks[i] }));
+}
+
+export async function getColumnsWithTasks(boardId: string): Promise<ColumnWithTasks[]> {
+  const columns = await getBoardColumns(boardId);
+  if (columns.length === 0) return [];
+
+  const tasks = await Promise.all(columns.map((column) => getTasksWithSubtasks(column.id)));
+  return columns.map((column, i) => {
+    return { ...column, tasks: tasks[i] };
+  });
 }

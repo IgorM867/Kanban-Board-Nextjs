@@ -26,3 +26,7 @@ export type Subtask = {
   done: boolean;
   subtask_order: number;
 };
+
+export type TaskWithSubtasks = Task & { subtasks: Subtask[] };
+
+export type ColumnWithTasks = Column & { tasks: TaskWithSubtasks[] };

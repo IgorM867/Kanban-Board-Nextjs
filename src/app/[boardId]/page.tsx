@@ -1,7 +1,7 @@
-import { ColumnsList } from "@/components/ColumnsList/ColumnsList";
+import { ColumnsListContainer } from "@/components/ColumnsList/ColumnsListContainer";
 import { ColumnsSkeleton } from "@/components/ColumnsList/ColumnsSkeleton";
 import { Header } from "@/components/Header/Header";
-import { getBoardById, getBoardColumns } from "@/lib/data";
+import { getBoardById } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -18,13 +18,12 @@ async function BoardPage({ params }: BoardPageProps) {
   if (!board) {
     return notFound();
   }
-  const columns = await getBoardColumns(board.id);
 
   return (
     <main className="flex-grow flex flex-col max-h-screen min-w-1">
-      <Header boardName={board.name} columns={columns} />
+      <Header boardName={board.name} boardId={board.id} />
       <Suspense fallback={<ColumnsSkeleton />}>
-        <ColumnsList columns={columns} />
+        <ColumnsListContainer boardId={board.id} />
       </Suspense>
     </main>
   );
