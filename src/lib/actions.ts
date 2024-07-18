@@ -228,3 +228,23 @@ export async function updateColumnsOrder(newOrder: string[]) {
     return { error: "Could not update columns order" };
   }
 }
+export async function updateTasksOrder(columnId: string, newOrder: string[]) {
+  const idsPlaceholders = newOrder.map((_, i) => `($${i + 1})`);
+
+  try {
+    await sql.query(
+      `WITH id_mapping AS (
+     SELECT id, ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) - 1 AS new_value
+     FROM (VALUES ${idsPlaceholders}) AS id_list(id)
+    )
+    UPDATE tasks
+    SET task_order = id_mapping.new_value
+    FROM id_mapping
+    WHERE tasks.id::text = id_mapping.id AND tasks.column_id = $${idsPlaceholders.length + 1};`,
+      [...newOrder, columnId]
+    );
+  } catch (error: any) {
+    consoleError("updateTasksOrder", error.message);
+    return { error: "Could not update tasks order" };
+  }
+}

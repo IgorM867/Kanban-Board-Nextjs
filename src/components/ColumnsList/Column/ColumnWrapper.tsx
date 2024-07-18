@@ -1,13 +1,15 @@
 "use client";
-import { useSortable } from "@dnd-kit/sortable";
+import { Task } from "@/types";
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 type ColumnWrapperProps = {
-  id: string;
   children: React.ReactNode;
+  id: string;
+  tasks: Task[];
 };
 
-function ColumnWrapper({ children, id }: ColumnWrapperProps) {
+function ColumnWrapper({ children, id, tasks }: ColumnWrapperProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
   });
@@ -26,7 +28,9 @@ function ColumnWrapper({ children, id }: ColumnWrapperProps) {
       {...attributes}
       {...listeners}
     >
-      {children}
+      <SortableContext items={tasks} strategy={verticalListSortingStrategy} id={id}>
+        {children}
+      </SortableContext>
     </div>
   );
 }
