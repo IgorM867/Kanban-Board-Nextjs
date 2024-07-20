@@ -24,8 +24,8 @@ function TaskWrapper({ children, task, subtasks }: TaskWrapperProps) {
   });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
     transition,
+    transform: CSS.Translate.toString(transform),
   };
 
   const handleTaskDelete = async () => {

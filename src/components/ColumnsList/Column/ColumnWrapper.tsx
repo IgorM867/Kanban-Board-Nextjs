@@ -1,23 +1,30 @@
-"use client";
-import { Task } from "@/types";
-import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { TaskWithSubtasks } from "@/types";
+import { AnimateLayoutChanges, defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 type ColumnWrapperProps = {
   children: React.ReactNode;
-  id: string;
-  tasks: Task[];
+  columnId: string;
+  items: TaskWithSubtasks[];
 };
+const animateLayoutChanges: AnimateLayoutChanges = (args) =>
+  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
-function ColumnWrapper({ children, id, tasks }: ColumnWrapperProps) {
+function ColumnWrapper({ children, columnId, items }: ColumnWrapperProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id,
+    id: columnId,
+    data: {
+      type: "column",
+      children: items,
+    },
+    animateLayoutChanges,
   });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
     transition,
+    transform: CSS.Translate.toString(transform),
   };
+
   return (
     <div
       className={`p-2 rounded-md w-64 flex-shrink-0 cursor-pointer hover:z-10 ${
@@ -28,9 +35,7 @@ function ColumnWrapper({ children, id, tasks }: ColumnWrapperProps) {
       {...attributes}
       {...listeners}
     >
-      <SortableContext items={tasks} strategy={verticalListSortingStrategy} id={id}>
-        {children}
-      </SortableContext>
+      {children}
     </div>
   );
 }

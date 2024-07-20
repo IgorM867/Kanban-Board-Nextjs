@@ -248,3 +248,11 @@ export async function updateTasksOrder(columnId: string, newOrder: string[]) {
     return { error: "Could not update tasks order" };
   }
 }
+export async function changeTaskColumn(taskId: string, newColumnId: string) {
+  try {
+    await sql`UPDATE tasks SET column_id = ${newColumnId} WHERE id = ${taskId};`;
+  } catch (error: any) {
+    consoleError("changeTaskColumn", error.message);
+    return { error: "Could not change task column" };
+  }
+}
