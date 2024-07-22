@@ -27,7 +27,7 @@ function ColumnWrapper({ children, columnId, items }: ColumnWrapperProps) {
 
   return (
     <div
-      className={`p-2 rounded-md w-64 flex-shrink-0 cursor-pointer hover:z-10 ${
+      className={`p-2 rounded-md w-72 flex-shrink-0 cursor-pointer hover:z-10 ${
         isDragging ? "bg-primary-color bg-opacity-60" : "hover:bg-primary-color hover:bg-opacity-30"
       }`}
       ref={setNodeRef}

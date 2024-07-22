@@ -15,7 +15,7 @@ function TextInputWithLabel({ label, name, placeholder }: TextInputWithLabelProp
         id={name}
         name={name}
         autoComplete="off"
-        maxLength={50}
+        maxLength={60}
         required
         placeholder={placeholder}
         className="w-full bg-primary-color border-font-secondary-color border-2 outline-none rounded-md p-1 focus:border-font-primary-color"

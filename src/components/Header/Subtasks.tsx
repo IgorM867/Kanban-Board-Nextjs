@@ -30,6 +30,7 @@ function Subtasks() {
             <input
               autoComplete="off"
               autoFocus
+              maxLength={60}
               name={`subtask-${i}`}
               className="w-full bg-primary-color border-font-secondary-color border-2 outline-none rounded-md p-1 focus:border-font-primary-color"
               placeholder={placeholders[i]}

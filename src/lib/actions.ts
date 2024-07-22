@@ -62,7 +62,7 @@ export async function renameBoard(boardId: string, boardName: string) {
 
 const newTaskFormSchema = z
   .object({
-    title: z.string({ invalid_type_error: "Task name is required" }).min(1).max(50),
+    title: z.string({ invalid_type_error: "Task name is required" }).min(1).max(60),
     description: z.string().max(200).optional(),
     status: z.string(),
   })
@@ -82,7 +82,7 @@ export async function addTask(prevState: FormState, formData: FormData) {
     description: formData.get("description"),
     status: formData.get("status"),
   });
-  const parsedSubtasks = z.array(z.string().min(1).max(50)).safeParse(rawSubtasks);
+  const parsedSubtasks = z.array(z.string().min(1).max(60)).safeParse(rawSubtasks);
 
   if (!parsedData.success) {
     consoleError("addTask", parsedData.error.message);
