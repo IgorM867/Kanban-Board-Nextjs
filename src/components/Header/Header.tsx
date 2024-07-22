@@ -14,10 +14,10 @@ async function Header({ boardName, boardId }: HeaderProps) {
       <h2 className="text-4xl font-medium">{boardName}</h2>
       <div className="flex gap-8 items-center">
         {columns.length > 0 && <AddTaskButton columns={columns} />}
-        <EllipsisVerticalIcon
+        {/* <EllipsisVerticalIcon
           height={42}
           className="cursor-pointer fill-font-secondary-color hover:fill-font-primary-color "
-        />
+        /> */}
       </div>
     </header>
   );

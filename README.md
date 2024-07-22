@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Discord Clone
 
-## Getting Started
+Live Site URL: [live site](https://kanban-board-nextjs-im.vercel.app/)
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Technologies](#technologies)
+4. [Examples](#examples)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is an implementation of the Kanban board, a popular tool for project management and workflow visualization. It allows users to create boards, add and manage columns, and create tasks with subtasks. The application also features drag-and-drop functionality for both columns and tasks, making it easy to organize and adjust your workflow.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+- Create Boards: Easily create and manage multiple boards for different projects or workflows.
+- Add Columns: Customize each board with multiple columns to represent different stages of your workflow (e.g., To Do, In Progress, Done).
+- Create Tasks: Add tasks to columns with details like titles, descriptions.
+- Subtasks: Break down tasks into subtasks to manage more granular aspects of your work.
+- Drag and Drop: Move columns and tasks between different stages or reorder them within a column using a drag-and-drop interface.
+- Column Reordering: Reorganize columns on a board by dragging them to different positions to adjust your workflow.
+- Task Reordering: Change the order of tasks within a column by dragging and dropping them.
+- Custom Context Menus for Boards and Tasks
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [PostgreSQL](https://www.postgresql.org/)
